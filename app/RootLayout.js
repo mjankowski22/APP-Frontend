@@ -34,30 +34,31 @@ export default function RootLayout({ children }) {
   return (
     <div className="layout">
       <div className="sidebar">
+        <h1 className="app-title">APP</h1>
         <div className="card" onClick={() => setSelectedPage(1)}>
           <h2>
-            1 <span>-&gt;</span>
+            Konsola 
           </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
+          <p>Wyslij polecenie do plawy</p>
         </div>
         <div className="card" onClick={() => setSelectedPage(2)}>
           <h2>
-            2 <span>-&gt;</span>
+            Mapa 
           </h2>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <p>Oznacz obszar działania pławy</p>
         </div>
         <div className="card" onClick={() => setSelectedPage(3)}>
           <h2>
-            3 <span>-&gt;</span>
+            Dane LORA 
           </h2>
-          <p>Explore starter templates for Next.js.</p>
+          <p>Pokaż dane z LORAwan</p>
         </div>
         <div className="card" onClick={() => setSelectedPage(4)}>
           <h2>
-            4 <span>-&gt;</span>
+            Dane pomiarowe 
           </h2>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Wyswietl dane pomiarowe
           </p>
         </div>
       </div>

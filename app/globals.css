@@ -18,6 +18,13 @@ body {
   color: white;
 }
 
+.app-title {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .card {
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
@@ -36,7 +43,7 @@ body {
 .card h2 {
   margin: 0 0 10px 0;
   font-size: 1.5em;
-  color: #0070f3;
+  color: #ff5f02;
 }
 
 .card p {
