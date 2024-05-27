@@ -5,7 +5,7 @@
 import { useState } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Page1 from "./components/Page1";
+import Page1 from "./components/WebSocketComponent";
 import Page2 from "./components/Page2";
 import Page3 from "./components/Page3";
 import Page4 from "./components/Page4";
