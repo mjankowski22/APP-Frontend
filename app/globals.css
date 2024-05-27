@@ -10,21 +10,32 @@ body {
 
 .sidebar {
   display: flex;
+  float: left;
   flex-direction: column;
   gap: 20px;
-  width: 250px;
+  width: 10%;
   padding: 20px;
   background: rgba(0, 0, 0, 0.8);
   color: white;
 }
 
-.app-title {
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
+.rightSide{
+  float: left;
+  width: 86.85%;
+  
 }
 
+.app-logo {
+  height: 100px; /* Adjust the size as needed */
+  width: auto;
+}
+
+.app-title {
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 !important;
+}
 .card {
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
@@ -38,6 +49,7 @@ body {
 
 .card:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .card h2 {
@@ -55,4 +67,31 @@ body {
 .content {
   flex-grow: 1;
   padding: 20px;
+}
+
+.top-bar {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  text-align: right;
+  width: 100%;
+  justify-content: space-between;
+  height: 15px;
+}
+
+.top-text{
+  color: white;
+  margin: 0 !important;
+
+}
+
+
+
+.orange-letter {
+  color: rgb(255, 94, 0);
+}
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
 }
