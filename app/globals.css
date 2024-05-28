@@ -5,28 +5,71 @@ body {
 
 .layout {
   display: flex;
+  flex-direction: row;
   min-height: 100vh;
 }
 
 .sidebar {
   display: flex;
-  float: left;
   flex-direction: column;
   gap: 20px;
-  width: 10%;
+  width: 200px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.8);
   color: white;
 }
 
-.rightSide{
-  float: left;
-  width: 86.85%;
-  
+.sidebar a, .sidebar .card {
+  padding: 10px 20px;
+  margin: 10px 0;
+  background: white;
+  color: rgb(255, 74, 3);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar a:hover, .sidebar .card:hover {
+  background: rgb(248, 248, 248);
+  transform: scale(1.05);
+}
+
+.rightSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-bar {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  text-align: right;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* Changed to flex-end to align items to the right */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.top-text {
+  color: white;
+  margin: 0 10px; /* Reduced margins for spacing */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
 }
 
 .app-logo {
-  height: 100px; /* Adjust the size as needed */
+  height: 100px;
   width: auto;
 }
 
@@ -34,15 +77,20 @@ body {
   font-size: 3em;
   font-weight: bold;
   text-align: center;
-  margin: 0 !important;
+  margin: 0;
 }
+
+.orange-letter {
+  color: rgb(255, 74, 3);
+}
+
 .card {
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   padding: 20px;
   border-radius: 10px;
   text-align: left;
   text-decoration: none;
-  color: #333;
+  color: rgb(255, 74, 3);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 }
@@ -55,43 +103,168 @@ body {
 .card h2 {
   margin: 0 0 10px 0;
   font-size: 1.5em;
-  color: #ff5f02;
+  color: rgb(255, 74, 3);
 }
 
 .card p {
   margin: 0;
   font-size: 1em;
-  color: #666;
+  color: rgb(255, 74, 3);
 }
 
-.content {
-  flex-grow: 1;
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .sidebar a, .sidebar .card {
+    margin: 10px;
+  }
+
+  .rightSide {
+    width: 100%;
+  }
+}
+
+/* Styles for WeatherChart */
+.weather-chart-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.top-bar {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 10px;
-  text-align: right;
-  width: 100%;
-  justify-content: space-between;
-  height: 15px;
-}
-
-.top-text{
-  color: white;
-  margin: 0 !important;
-
-}
-
-
-
-.orange-letter {
-  color: rgb(255, 94, 0);
-}
-
-
-.logo-container {
+.filters {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.filter-button {
+  align-self: flex-end;
+  padding: 8px 12px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: #45a049;
+}
+
+.chart-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.chart-button {
+  padding: 10px 20px;
+  background-color: #f38721;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.chart-button:hover {
+  background-color: #da460b;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+  background-color: #ddd;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 14px;
+}
+
+.page-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.page-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.page-indicator.active {
+  background-color: #2196F3;
+}
+
+@media (min-width: 768px) {
+  .filters {
+    flex-direction: row;
+  }
+
+  .chart-buttons {
+    flex-direction: row;
+  }
 }
