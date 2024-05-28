@@ -7,6 +7,7 @@ import Page1 from "./components/Page_Console";
 import Page2 from "./components/Page_Map";
 import Page3 from "./components/Page_DataLoRa";
 import Page4 from "./components/Page_DataChart";
+import Page5 from "./components/Page_Settings";
 import io from 'socket.io-client';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -56,12 +57,16 @@ export default function RootLayout({ children }) {
     case 4:
       pageContent = <Page4 />;
       break;
+    case 5:
+        pageContent = <Page5 wifiStatus={wifiStatus} setWifiStatus={setWifiStatus} />;
+        break;
     default:
       pageContent = <div>Select a page</div>;
   }
 
   return (
     <div className="layout">
+      
       <div className="sidebar">
         <div className="logo-container">
           <img src="/images/logo.png" alt="App Logo" className="app-logo" />
@@ -82,6 +87,9 @@ export default function RootLayout({ children }) {
         <div className="card" onClick={() => setSelectedPage(4)}>
           <h2>Dane pomiarowe</h2>
         </div>
+        <div className="card" onClick={() => setSelectedPage(5)}>
+          <h2>Ustawienia</h2>
+        </div>        
       </div>
 
       <div className="rightSide">
