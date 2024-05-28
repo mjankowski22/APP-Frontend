@@ -8,7 +8,7 @@ import "./globals.css";
 import Page1 from "./components/WebSocketComponent";
 import Page2 from "./components/Page2";
 import Page3 from "./components/Page3";
-import Page4 from "./components/Page4";
+import Page4 from "./components/DataChart";
 
 const inter = Inter({ subsets: ["latin"] });
 
