@@ -8,7 +8,7 @@ const WebSocketComponent = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const socket = io('http://localhost:5000'); // URL do serwera Flask
+    const socket = io('http://153.19.55.87/'); // URL do serwera Flask
 
     socket.on('connect', () => {
       console.log('Connected to WebSocket server');
