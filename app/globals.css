@@ -3,6 +3,11 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
+
 .layout {
   display: flex;
   flex-direction: row;
@@ -17,6 +22,7 @@ body {
   padding: 20px;
   background: rgba(0, 0, 0, 0.8);
   color: white;
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .sidebar a, .sidebar .card {
@@ -38,6 +44,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .content {
@@ -46,21 +53,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto; /* Allow vertical scrolling if needed */
 }
 
 .top-bar {
   background: rgba(0, 0, 0, 0.8);
   padding: 10px;
-  text-align: right;
   width: 100%;
   display: flex;
-  justify-content: flex-end; /* Changed to flex-end to align items to the right */
-  align-items: center; /* Align items vertically in the center */
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .top-text {
   color: white;
-  margin: 0 10px; /* Reduced margins for spacing */
+  margin: 0 10px;
 }
 
 .logo-container {
