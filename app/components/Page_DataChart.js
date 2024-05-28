@@ -1,35 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto'; // Import chart.js
-import './Styles_DataChart.css'; // Import the CSS file
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Line } from "react-chartjs-2";
+import "chart.js/auto"; // Import chart.js
+import "./Styles_DataChart.css"; // Import the CSS file
 
 const WeatherChart = () => {
   const [chartData, setChartData] = useState({});
   const [filteredData, setFilteredData] = useState({});
-  const [currentChart, setCurrentChart] = useState('temperature'); // Track the current chart
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [currentChart, setCurrentChart] = useState("temperature"); // Track the current chart
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 50;
 
   useEffect(() => {
     // Fetch data from the backend server
-    axios.get('http://153.19.55.87:5000/5g_dane/all')
-      .then(response => {
+    axios
+      .get("http://153.19.55.87:5000/5g_dane/all")
+      .then((response) => {
         const data = response.data || [];
 
         // Check if the data is in the expected format
         if (!Array.isArray(data)) {
-          throw new Error('Unexpected data format');
+          throw new Error("Unexpected data format");
         }
 
         // Prepare data for the chart
-        const dates = data.map(item => item.date_and_time);
-        const temperatures = data.map(item => item.temperature_inside);
-        const pressures = data.map(item => item.atmospheric_pressure);
-        const lightIntensities = data.map(item => item.light_intensity);
-        const waterTemperatures = data.map(item => item.water_temperature);
+        const dates = data.map((item) => item.date_and_time);
+        const temperatures = data.map((item) => item.temperature_inside);
+        const pressures = data.map((item) => item.atmospheric_pressure);
+        const lightIntensities = data.map((item) => item.light_intensity);
+        const waterTemperatures = data.map((item) => item.water_temperature);
 
         const processedData = {
           data,
@@ -37,36 +38,53 @@ const WeatherChart = () => {
           temperatures,
           pressures,
           lightIntensities,
-          waterTemperatures
+          waterTemperatures,
         };
 
         setChartData(processedData);
         setFilteredData(processedData);
       })
-      .catch(error => {
-        console.error('Error fetching the data', error);
+      .catch((error) => {
+        console.error("Error fetching the data", error);
       });
   }, []);
 
   const handleFilter = () => {
-    if (!startDate || !endDate) {
+    if (!startDate && !endDate) {
       setFilteredData(chartData);
       return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
 
-    const filtered = chartData.data.filter(item => {
+    // Add 00:00:00 to the start date to include the whole start date
+    if (start) {
+      start.setHours(0, 0, 0, 0);
+    }
+
+    // Add 23:59:59 to the end date to include the whole end date
+    if (end) {
+      end.setHours(23, 59, 59, 999);
+    }
+
+    const filtered = chartData.data.filter((item) => {
       const date = new Date(item.date_and_time);
-      return date >= start && date <= end;
+      if (start && end) {
+        return date >= start && date <= end;
+      } else if (start) {
+        return date >= start;
+      } else if (end) {
+        return date <= end;
+      }
+      return true;
     });
 
-    const dates = filtered.map(item => item.date_and_time);
-    const temperatures = filtered.map(item => item.temperature_inside);
-    const pressures = filtered.map(item => item.atmospheric_pressure);
-    const lightIntensities = filtered.map(item => item.light_intensity);
-    const waterTemperatures = filtered.map(item => item.water_temperature);
+    const dates = filtered.map((item) => item.date_and_time);
+    const temperatures = filtered.map((item) => item.temperature_inside);
+    const pressures = filtered.map((item) => item.atmospheric_pressure);
+    const lightIntensities = filtered.map((item) => item.light_intensity);
+    const waterTemperatures = filtered.map((item) => item.water_temperature);
 
     setFilteredData({
       data: filtered,
@@ -74,7 +92,7 @@ const WeatherChart = () => {
       temperatures,
       pressures,
       lightIntensities,
-      waterTemperatures
+      waterTemperatures,
     });
     setCurrentPage(1); // Reset to the first page
   };
@@ -89,25 +107,25 @@ const WeatherChart = () => {
     let borderColor;
 
     switch (currentChart) {
-      case 'temperature':
+      case "temperature":
         data = filteredData.temperatures;
-        label = 'Temperature Inside';
-        borderColor = 'rgba(75,192,192,1)';
+        label = "Temperature Inside";
+        borderColor = "rgba(75,192,192,1)";
         break;
-      case 'pressure':
+      case "pressure":
         data = filteredData.pressures;
-        label = 'Atmospheric Pressure';
-        borderColor = 'rgba(153,102,255,1)';
+        label = "Atmospheric Pressure";
+        borderColor = "rgba(153,102,255,1)";
         break;
-      case 'light':
+      case "light":
         data = filteredData.lightIntensities;
-        label = 'Light Intensity';
-        borderColor = 'rgba(255,159,64,1)';
+        label = "Light Intensity";
+        borderColor = "rgba(255,159,64,1)";
         break;
-      case 'water':
+      case "water":
         data = filteredData.waterTemperatures;
-        label = 'Water Temperature';
-        borderColor = 'rgba(54,162,235,1)';
+        label = "Water Temperature";
+        borderColor = "rgba(54,162,235,1)";
         break;
       default:
         return null;
@@ -123,8 +141,8 @@ const WeatherChart = () => {
               data,
               borderColor,
               fill: false,
-            }
-          ]
+            },
+          ],
         }}
       />
     );
@@ -138,7 +156,10 @@ const WeatherChart = () => {
     // Calculate the records to display on the current page
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-    const currentRecords = filteredData.data.slice(indexOfFirstRecord, indexOfLastRecord);
+    const currentRecords = filteredData.data.slice(
+      indexOfFirstRecord,
+      indexOfLastRecord
+    );
 
     const totalPages = Math.ceil(filteredData.data.length / recordsPerPage);
 
@@ -158,7 +179,7 @@ const WeatherChart = () => {
             </tr>
           </thead>
           <tbody>
-            {currentRecords.map(item => (
+            {currentRecords.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.date_and_time}</td>
@@ -183,7 +204,9 @@ const WeatherChart = () => {
             {Array.from({ length: totalPages }, (_, index) => (
               <div
                 key={index}
-                className={`page-indicator ${currentPage === index + 1 ? 'active' : ''}`}
+                className={`page-indicator ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
                 onClick={() => setCurrentPage(index + 1)}
               />
             ))}
@@ -209,18 +232,46 @@ const WeatherChart = () => {
       <div className="filters">
         <label>
           Start Date:
-          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
         </label>
         <label>
           End Date:
-          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </label>
       </div>
       <div className="chart-buttons">
-        <button className="chart-button" onClick={() => setCurrentChart('temperature')}>Temperature Inside</button>
-        <button className="chart-button" onClick={() => setCurrentChart('pressure')}>Atmospheric Pressure</button>
-        <button className="chart-button" onClick={() => setCurrentChart('light')}>Light Intensity</button>
-        <button className="chart-button" onClick={() => setCurrentChart('water')}>Water Temperature</button>
+        <button
+          className="chart-button"
+          onClick={() => setCurrentChart("temperature")}
+        >
+          Temperature Inside
+        </button>
+        <button
+          className="chart-button"
+          onClick={() => setCurrentChart("pressure")}
+        >
+          Atmospheric Pressure
+        </button>
+        <button
+          className="chart-button"
+          onClick={() => setCurrentChart("light")}
+        >
+          Light Intensity
+        </button>
+        <button
+          className="chart-button"
+          onClick={() => setCurrentChart("water")}
+        >
+          Water Temperature
+        </button>
       </div>
       {renderChart()}
       <h2>Measurement Data</h2>
