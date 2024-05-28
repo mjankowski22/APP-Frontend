@@ -5,7 +5,7 @@ body {
 
 html, body {
   height: 100%;
-  overflow: hidden; /* Prevent scrolling */
+   /* Prevent scrolling */
 }
 
 .layout {
