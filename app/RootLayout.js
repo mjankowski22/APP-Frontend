@@ -5,10 +5,10 @@
 import { useState } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Page1 from "./components/WebSocketComponent";
-import Page2 from "./components/Page2";
-import Page3 from "./components/Page3";
-import Page4 from "./components/DataChart";
+import Page1 from "./components/Page_Console";
+import Page2 from "./components/Page_Map";
+import Page3 from "./components/Page_DataLoRa";
+import Page4 from "./components/Page_DataChart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,19 +53,15 @@ export default function RootLayout({ children }) {
 
       <div className="card" onClick={() => setSelectedPage(1)}>
         <h2>Konsola</h2>
-        <p>Wyślij polecenie do pływającego urządzenia</p>
       </div>
       <div className="card" onClick={() => setSelectedPage(2)}>
         <h2>Mapa</h2>
-        <p>Oznacz obszar działania pływającego urządzenia</p>
       </div>
       <div className="card" onClick={() => setSelectedPage(3)}>
         <h2>Dane LORA</h2>
-        <p>Pokaż dane z LORAwan</p>
       </div>
       <div className="card" onClick={() => setSelectedPage(4)}>
         <h2>Dane pomiarowe</h2>
-        <p>Wyświetl dane pomiarowe</p>
       </div>
     </div>
     

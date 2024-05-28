@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Import chart.js
-import './WeatherChart.css'; // Import the CSS file
+import './Styles_DataChart.css'; // Import the CSS file
 
 const WeatherChart = () => {
   const [chartData, setChartData] = useState({});

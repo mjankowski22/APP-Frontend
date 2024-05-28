@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import styles from './WebSocketComponent.module.css';
+import styles from './Styles_Console.css';
 
 const MAX_MESSAGES = 200;
 
