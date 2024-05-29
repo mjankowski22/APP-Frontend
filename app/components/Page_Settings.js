@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // Komponent Page5 przyjmuje prop "wifiStatus" z RootLayout
 export default function Page5({ wifiStatus, setWifiStatus }) {
-  const [intervalValue, setIntervalValue] = useState(0);
+  const [intervalValue, setIntervalValue] = useState(1);
 
   const handleIntervalChange = (e) => {
     let value = parseInt(e.target.value);
