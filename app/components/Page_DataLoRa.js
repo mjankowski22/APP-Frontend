@@ -221,9 +221,11 @@ const WeatherChart = () => {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </label>
-        <button className="filter-button" onClick={handleFilter}>Filter</button>
+        <button className="filter-button" onClick={handleFilter}>
+          Filter
+        </button>
       </div>
-      
+
       {renderChart()}
       <h2>Measurement Data</h2>
       {renderTable()}

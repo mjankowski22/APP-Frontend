@@ -13,8 +13,7 @@ export default function Page5({ wifiStatus, setWifiStatus }) {
   };
 
   const handleConfirm = () => {
-   
-    fetch("/interval_change", {
+    fetch("http://153.19.55.87:5000/interval_change", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +34,7 @@ export default function Page5({ wifiStatus, setWifiStatus }) {
 
   const handleWifiToggle = () => {
     setWifiStatus(!wifiStatus);
-    fetch("/turn_wifi", {
+    fetch("http://153.19.55.87:5000/turn_wifi", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +52,6 @@ export default function Page5({ wifiStatus, setWifiStatus }) {
       });
   };
 
-
   return (
     <div>
       <div>
@@ -63,12 +61,15 @@ export default function Page5({ wifiStatus, setWifiStatus }) {
           value={intervalValue}
           onChange={handleIntervalChange}
         />
-        <button  onClick={handleConfirm}>Potwierdź</button>
+        <button onClick={handleConfirm}>Potwierdź</button>
       </div>
       <div>
         <h2 style={{ display: "inline-block", marginRight: "10px" }}>Wifi</h2>
-  
-        <button onClick={handleWifiToggle} style={{ verticalAlign: "top" ,marginTop:"8.5%"}}>
+
+        <button
+          onClick={handleWifiToggle}
+          style={{ verticalAlign: "top", marginTop: "8.5%" }}
+        >
           {wifiStatus ? "Off" : "On"}
         </button>
       </div>

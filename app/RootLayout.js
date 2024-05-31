@@ -9,32 +9,32 @@ import Page3 from "./components/Page_DataLoRa";
 import Page4 from "./components/Page_DataChart";
 import Page5 from "./components/Page_Settings";
 import Page6 from "./components/Page_Download";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const [selectedPage, setSelectedPage] = useState(1);
   const [fiveGStatus, setFiveGStatus] = useState(0);
-  const [wifiStatus, setWifiStatus] = useState(0);   // Domyślny status Wifi
+  const [wifiStatus, setWifiStatus] = useState(0); // Domyślny status Wifi
 
   useEffect(() => {
-    const socket = io('http://localhost:5000'); // Upewnij się, że URL jest zgodny z URL-em serwera Flask
+    const socket = io("http://153.19.55.87:5000"); // Upewnij się, że URL jest zgodny z URL-em serwera Flask
 
-    socket.on('connect', () => {
-      console.log('Connected to server');
+    socket.on("connect", () => {
+      console.log("Connected to server");
     });
 
-    socket.on('fiveg', (data) => {
+    socket.on("fiveg", (data) => {
       setFiveGStatus(data.status);
     });
 
-    socket.on('wifi', (data) => {
+    socket.on("wifi", (data) => {
       setWifiStatus(data.status);
     });
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server');
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
       setFiveGStatus(0); // Ustaw status na 0 po rozłączeniu
       setWifiStatus(0); // Ustaw status na 0 po rozłączeniu
     });
@@ -59,18 +59,19 @@ export default function RootLayout({ children }) {
       pageContent = <Page4 />;
       break;
     case 5:
-        pageContent = <Page5 wifiStatus={wifiStatus} setWifiStatus={setWifiStatus} />;
-        break;
+      pageContent = (
+        <Page5 wifiStatus={wifiStatus} setWifiStatus={setWifiStatus} />
+      );
+      break;
     case 6:
-        pageContent = <Page6 />;
-        break;
+      pageContent = <Page6 />;
+      break;
     default:
       pageContent = <div>Select a page</div>;
   }
 
   return (
     <div className="layout">
-      
       <div className="sidebar">
         <div className="logo-container">
           <img src="/images/logo.png" alt="App Logo" className="app-logo" />
@@ -96,13 +97,21 @@ export default function RootLayout({ children }) {
         </div>
         <div className="card" onClick={() => setSelectedPage(6)}>
           <h2>Pobieranie</h2>
-        </div>       
+        </div>
       </div>
 
       <div className="rightSide">
         <div className="top-bar">
-          <p className="top-text">5g/LTE <span style={{ color: fiveGStatus === 1 ? 'green' : 'red' }}>●</span></p>
-          <p className="top-text">WiFi <span style={{ color: wifiStatus === 1 ? 'green' : 'red' }}>●</span></p>
+          <p className="top-text">
+            5g/LTE{" "}
+            <span style={{ color: fiveGStatus === 1 ? "green" : "red" }}>
+              ●
+            </span>
+          </p>
+          <p className="top-text">
+            WiFi{" "}
+            <span style={{ color: wifiStatus === 1 ? "green" : "red" }}>●</span>
+          </p>
         </div>
 
         <div className="content">{pageContent}</div>
