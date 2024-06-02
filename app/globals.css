@@ -12,6 +12,7 @@ html, body {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+  
 }
 
 .sidebar {
@@ -23,6 +24,7 @@ html, body {
   background: rgba(0, 0, 0, 0.8);
   color: white;
   box-sizing: border-box; /* Ensure padding is included in width */
+  min-width:  215px;
 }
 
 .sidebar a, .sidebar .card {

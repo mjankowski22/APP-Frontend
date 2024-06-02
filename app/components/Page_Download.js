@@ -75,7 +75,7 @@ export default function Page6() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Pobieranie dane przez 5g/LTE</h2>
+      <h2>Pobieranie danych przez 5g/LTE</h2>
       <div style={{ marginBottom: "10px" }}>
         <input
           type="checkbox"

@@ -67,7 +67,7 @@ const MapComponent = () => {
   };
 
   return (
-    <div style={{ height: "80vh", width: "80%", margin: "auto" }}>
+    <div style={{ height: "80vh", width: "80%", margin: "0"}}>
       <MapContainer
         center={[54.35, 18.55]}
         zoom={10}
